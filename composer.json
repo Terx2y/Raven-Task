@@ -1,0 +1,7 @@
+{
+  "require": {
+    "philo/laravel-blade": "3.*",
+    "wixel/gump": "dev-master",
+    "pimple/pimple": "^3.0"
+  }
+}
