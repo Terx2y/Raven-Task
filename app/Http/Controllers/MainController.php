@@ -4,8 +4,11 @@ class MainController extends \app\Http\Controllers\Controller
 {
     public function index()
     {
-        self::make('main',[
-            'success' => ['name' => 'jake']
-        ]);
+        if (!isset($_SESSION['user_ready'])){
+            self::make('welcome');
+        }
+        else {
+            self::make('main', ['success' => ['name' => 'jake']]);
+        }
     }
 }
