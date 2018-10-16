@@ -13,7 +13,7 @@ abstract class BaseModel
 {
     protected $table;
     protected $fillable;
-    private $pdo;
+    public $pdo;
 
     public function __construct()
     {
