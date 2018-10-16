@@ -5,9 +5,9 @@
 @section('content')
 
     <div id="tasks_content">
-        <p style="width: 100%; display: flex; justify-content: flex-start; align-items: center; height: 62px; font-size: 1.5em; padding-left: 10px;">Добро пожаловать</p>
+        <p style="width: 100%; display: flex; justify-content: flex-start; align-items: center; height: 62px; font-size: 1.5em; padding-left: 10px;">Добро пожаловать, {{$success['name']}} <span><a
+                        href="/logout">(выйти)</a></span></p>
         <div id="list_tasks" class="dashboard display-animation" style="margin: 0 auto;">
-        {{$success['name']}}
             {{--@forelse($success as $task)--}}
                 {{--<a class="{{ $task['priority'] }}" href="#">--}}
                     {{--<span class="content-wrapper">--}}
