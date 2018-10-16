@@ -12,6 +12,7 @@ $routes->post("/add", "TasksController@create");
 $routes->get("/favorites", "FavoriteController@getList");
 
 $routes->get("/welcome-back", "UserController@signin");
-$routes->get("/welcome", "UserController@signup");
+//$routes->get("/welcome", "UserController@signup");
+$routes->get("/logout", "UserController@logout");
 
 route::fetch();
