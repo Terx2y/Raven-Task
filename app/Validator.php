@@ -2,23 +2,22 @@
 
 namespace app;
 
-
 class Validator extends \GUMP
 {
+    public $err_set = array();
+
     public function check($data, $rules)
     {
-        $checker = self::is_valid($data, $rules);
+        $this->err_set = self::is_valid($data, $rules);
 
-        if($checker === true)
+        if($this->err_set === true)
         {
             return true;
         }
-        else {
+    }
 
-            for ($i = 0; $i < count($this->errors = $checker); $i++)
-            {
-                echo "<p>" . $this->errors[$i] . "</p>";
-            }
-        }
+    public function errorMessages()
+    {
+        return $this->err_set;
     }
 }
