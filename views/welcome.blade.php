@@ -14,7 +14,7 @@
     <div class="bottom">
         <div class="buttons">
             <a href="/welcome-back">Войти</a>
-            <a href="/welcome">Регистрация</a>
+            <!-- <a href="/welcome">Регистрация</a> -->
         </div>
     </div>
 @endsection
