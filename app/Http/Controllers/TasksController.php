@@ -1,10 +1,15 @@
 <?php
 use app\Models\Task;
+use app\Http\Request;
 
 class TasksController extends \app\Http\Controllers\Controller
 {
     public function index()
     {
+        if(!self::isAuth())
+        {
+            (new Request())->redirect('/welcome-back');
+        }
         $tasks = (new Task())->all(); // Here we get all data from "tasks" table
 
         self::make('tasks', [

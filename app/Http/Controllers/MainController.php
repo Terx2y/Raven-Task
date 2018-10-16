@@ -4,11 +4,12 @@ class MainController extends \app\Http\Controllers\Controller
 {
     public function index()
     {
-        if (!isset($_SESSION['user_ready'])){
+        if(!self::isAuth())
+        {
             self::make('welcome');
         }
-        else {
-            self::make('main', ['success' => ['name' => 'jake']]);
+        else{
+            self::make('main', ['success' => ['name' => $_SESSION['user']]]);
         }
     }
 }
