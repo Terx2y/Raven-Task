@@ -2,7 +2,6 @@
 // Application base controller
 
 namespace app\Http\Controllers;
-
 use Philo\Blade\Blade;
 
 abstract class Controller
@@ -14,5 +13,13 @@ abstract class Controller
 
         $blade = new Blade($views, $cache);
         echo $blade->view()->make($page)->with($args)->render();
+    }
+
+    public static function isAuth()
+    {
+        if (isset($_SESSION['user']))
+        {
+            return true;
+        }
     }
 }
