@@ -13,8 +13,8 @@
     </div>
     <div class="bottom">
         <div class="buttons">
-            <a href="#">Войти</a>
-            <a href="#">Регистрация</a>
+            <a href="/welcome-back">Войти</a>
+            <a href="/welcome">Регистрация</a>
         </div>
     </div>
 @endsection

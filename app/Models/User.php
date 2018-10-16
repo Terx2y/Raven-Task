@@ -5,5 +5,5 @@ namespace app\Models;
 class User extends BaseModel
 {
     protected $table = "users";
-    public $fillable = [];
+    public $fillable = ['name','email','password'];
 }
