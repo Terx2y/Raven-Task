@@ -25,7 +25,6 @@ class BenderLogic
 
     public static function setPassword($user)
     {
-
         echo "Here we will generate password for " . $user['name'];
     }
 }

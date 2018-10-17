@@ -20,5 +20,5 @@ if ($argv[1] == "-make")
     }
 }
 else{
-    exit("Unknown command: " . "'" . $argv[1] . "'");
+    exit("Unknown command: " . "'" . $argv[1] . "'\nBender usage: -command [-make] parameter: [user:] name\n");
 }
