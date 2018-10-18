@@ -9,7 +9,7 @@ class MainController extends \app\Http\Controllers\Controller
             self::make('welcome');
         }
         else{
-            self::make('main', ['success' => ['name' => $_SESSION['user']]]);
+            self::make('main', ['success' => ['name' => $_SESSION['id']]]);
         }
     }
 }
