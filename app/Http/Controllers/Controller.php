@@ -3,6 +3,7 @@
 
 namespace app\Http\Controllers;
 use Philo\Blade\Blade;
+use app\Session;
 
 abstract class Controller
 {
@@ -17,9 +18,6 @@ abstract class Controller
 
     public static function isAuth()
     {
-        if (isset($_SESSION['user']))
-        {
-            return true;
-        }
+        return (new Session())->isSessionUserExists();
     }
 }
