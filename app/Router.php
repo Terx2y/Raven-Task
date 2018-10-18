@@ -30,7 +30,7 @@ class Router
     public static function fetch()
     {
         $uri = $_SERVER['REQUEST_URI']; // Get our current url
-
+        // Тут можно начать проверку регистрирован ли юзер
         // If we won't find  our /$uri/ in routes set, then 404
         if(!isset(self::$routeCollection[$uri])){
             exit(print Response::HTTP_NOT_FOUND);
