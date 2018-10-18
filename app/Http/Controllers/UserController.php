@@ -1,58 +1,58 @@
 <?php
 use app\Models\User;
 use app\Http\Request;
+use app\Session;
 
 class UserController extends \app\Http\Controllers\Controller
 {
     // Войти
     public function signIn()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $validate = new \app\Validator();
-
-            $data = [
-                'email' => htmlspecialchars($_POST['email']),
-                'password' => htmlspecialchars($_POST['password'])
-            ];
-
-            $result = $validate->check($data, [
-                'email' => 'required|min_len,4|max_len,50',
-                'password' => 'required|alpha_numeric|min_len,8'
-            ]);
-
-            if($result)
-            {
-                // Check by EMail if user exists
-                $user = new User();
-                $getUser = $user->checkUser($data['email']);
-
-                if(!empty($getUser))
-                {
-                    // Ждём, когда в GUMP реализуют сравнение полей
-                    if($data['password'] === $getUser['password'])
-                    {
-                        $_SESSION['user'] = $getUser['name'];
-                        $_SESSION['id'] = $getUser['id'];
-                        (new Request())->redirect("/");
-                    }
-                    else
-                    {
-                        self::make('signin', ['errors' => ['errors' => "Введён неверный пароль"]]);
-                    }
-                    // Всё ещё ждём, когда в GUMP реализуют сравнение полей
-                }
-                else{
-                    self::make('signin', ['errors' => ['errors' => "Такого пользователя не существует"]]);
-                }
-            }
-            else{
-                $errors = $validate->errorMessages();
-                self::make('signin', ['errors' => $errors]);
-            }
-        }
-        else{
+        if (!(new Request())->isPost()) {
             self::make('signin');
+            exit;
         }
+
+        $validate = new \app\Validator();
+
+        $data = [
+            'email' => htmlspecialchars($_POST['email']),
+            'password' => htmlspecialchars($_POST['password'])
+        ];
+
+        $result = $validate->check($data, [
+            'email' => 'required|min_len,4|max_len,50',
+            'password' => 'required|alpha_numeric|min_len,8'
+        ]);
+
+        if(!$result)
+        {
+            $errors = $validate->errorMessages();
+            self::make('signin', ['errors' => $errors]);
+            exit;
+        }
+
+        // Check by EMail if user exists
+        $user = new User();
+        $getUser = $user->checkUser($data['email']);
+
+        if(empty($getUser))
+        {
+            self::make('signin', ['errors' => ['errors' => "Такого пользователя не существует"]]);
+            exit;
+        }
+
+        // Ждём, когда в GUMP реализуют сравнение полей
+        if($data['password'] === $getUser['password'])
+        {
+            (new Session())->setUser($getUser);
+            (new Request())->redirect("/");
+        }
+        else
+        {
+            self::make('signin', ['errors' => ['errors' => "Введён неверный пароль"]]);
+        }
+        // Всё ещё ждём, когда в GUMP реализуют сравнение полей
     }
 
     // Регистрация
@@ -95,7 +95,7 @@ class UserController extends \app\Http\Controllers\Controller
 
     public function logout()
     {
-        session_destroy();
+        ((new Session())->clearSession());
         (new Request())->redirect("/");
     }
 
