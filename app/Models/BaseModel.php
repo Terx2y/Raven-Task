@@ -28,6 +28,12 @@ abstract class BaseModel
         }
     }
 
+    public function getById($id)
+    {
+        $readFromDB = $this->pdo->query("SELECT * FROM " . $this->table . " WHERE `id` = " . $id)->fetch();
+        return $readFromDB;
+    }
+
     // todo Нужно создать методы getParamsFromFillables и getParamsFromData, чтобы убрать весь этот ужас с тернарниками
     public function create($data)
     {
