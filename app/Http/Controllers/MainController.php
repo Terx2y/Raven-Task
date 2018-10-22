@@ -1,15 +1,18 @@
 <?php
 
+use app\Models\User;
+
 class MainController extends \app\Http\Controllers\Controller
 {
     public function index()
     {
         if(!self::isAuth())
         {
-            self::make('welcome');
+            exit(self::make('welcome'));
         }
-        else{
-            self::make('main', ['success' => ['name' => $_SESSION['id']]]);
-        }
+
+        $user = (new User())->getById($_SESSION['id']);
+        self::make('main', ['user' => $user]);
+        unset($user);
     }
 }
