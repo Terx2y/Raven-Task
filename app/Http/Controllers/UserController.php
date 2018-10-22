@@ -9,8 +9,7 @@ class UserController extends \app\Http\Controllers\Controller
     public function signIn()
     {
         if (!(new Request())->isPost()) {
-            self::make('signin');
-            exit;
+            exit(self::make('signin'));
         }
 
         $validate = new \app\Validator();
@@ -28,8 +27,7 @@ class UserController extends \app\Http\Controllers\Controller
         if(!$result)
         {
             $errors = $validate->errorMessages();
-            self::make('signin', ['errors' => $errors]);
-            exit;
+            exit(self::make('signin', ['errors' => $errors]));
         }
 
         // Check by EMail if user exists
@@ -38,8 +36,7 @@ class UserController extends \app\Http\Controllers\Controller
 
         if(empty($getUser))
         {
-            self::make('signin', ['errors' => ['errors' => "Такого пользователя не существует"]]);
-            exit;
+            exit(self::make('signin', ['errors' => ['errors' => "Такого пользователя не существует"]]));
         }
 
         // Ждём, когда в GUMP реализуют сравнение полей
